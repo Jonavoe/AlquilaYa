@@ -1,49 +1,48 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
 
-const UsersSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      validate: {
-        validator: validator.isEmail,
-        message: "El correo electrónico debe tener un formato válido",
-      },
-    },
-    birthdate: {
-      type: String,
-    },
-    photo: {
-      type: String,
-    },
-    country: {
-      type: String,
-    },
-    contactNumber: {
-      type: String,
-    },
-    description: {
-      type: String,
-    },
-    rol: {
-      type: String,
-      required: true,
-    },
-    deleted: {
-      type: Boolean,
-      default: false,
-    },
+const ClasificacionesSchema = new mongoose.Schema({
+  _id: mongoose.Schema.Types.ObjectId,
+  idInmueble: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Inmuebles",
+    // required: [true, "El ID del inmueble es obligatorio"],
   },
-  { timestamps: true }
+  idUsuario: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Usuarios",
+    // required: [true, "El ID del usuario es obligatorio"],
+  },
+  estadoInmueble: {
+    type: String,
+    // required: [true, "La evaluación del estado del inmueble es obligatoria"],
+  },
+  relacionPropietario: {
+    type: String,
+    // required: [
+    //   true,
+    // "La evaluación de la relación con el propietario es obligatoria",
+    // ],
+  },
+  vecinos: {
+    type: String,
+    required: [
+      true,
+      // "La evaluación del comportamiento de los vecinos es obligatoria",
+    ],
+  },
+  zona: {
+    type: String,
+    // required: [true, "La evaluación de la zona es obligatoria"],
+  },
+  precio: {
+    type: String,
+    // required: [true, "La evaluación del precio del alquiler es obligatoria"],
+  },
+});
+
+const Clasificaciones = mongoose.model(
+  "Clasificaciones",
+  ClasificacionesSchema
 );
 
-
-const Users = new mongoose.model("Users", UsersSchema);
-
-module.exports = Users;
+module.exports = Clasificaciones;
