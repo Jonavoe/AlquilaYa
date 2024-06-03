@@ -2,37 +2,9 @@
 const Rents = require("../../models/Rents");
 
 // Función asincrónica para crear un nuevo Rents en la base de datos
-const postRents = async ({
-  name,
-  email,
-  birthdate,
-  photo,
-  country,
-  contactNumber,
-  description,
-  classifications,
-  average_delay,
-  incidences,
-  hired_leads,
-  rol,
-  deleted,
-}) => {
+const postRents = async (data) => {
   // Crear un nuevo Rents en la base de datos utilizando los datos proporcionados
-  const postRent = await Rents.create({
-    name,
-    email,
-    birthdate,
-    photo,
-    country,
-    contactNumber,
-    description,
-    classifications,
-    average_delay,
-    incidences,
-    hired_leads,
-    rol,
-    deleted,
-  });
+  const postRent = await Rents.create(data);
 
   // Devolver el resultado de la creación del Rents (el Rents recién creado)
   return postRent;
