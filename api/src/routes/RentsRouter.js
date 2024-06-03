@@ -5,7 +5,6 @@ const {
   getRentsByEmailHandler,
   getRentsByIdHandler,
   updateRentsHandler,
-  putRentsLeadHandler,
 } = require("../Handlers/RentsHandlers");
 
 const RentsRouter = Router();
