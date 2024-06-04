@@ -3,6 +3,7 @@ const Users = require("../../models/Users");
 
 // Definir una función asincrónica llamada postUsers que creará un nuevo registro de Users en la base de datos
 const postUsers = async (data) => {
+  console.log(data);
   // Crear un nuevo registro de Users en la base de datos utilizando el método "create" del modelo Users
   const postUser = await Users.create(data);
 
