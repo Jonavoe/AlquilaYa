@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 
 const RentsSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
   provincia: {
     type: String,
     // required: [true, "La provincia es obligatoria"],
@@ -53,6 +52,6 @@ const RentsSchema = new mongoose.Schema({
   },
 });
 
-const Rents = mongoose.model("Inmuebles", RentsSchema);
+const Rents = mongoose.model("Rents", RentsSchema);
 
 module.exports = Rents;
