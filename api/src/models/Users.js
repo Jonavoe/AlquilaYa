@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
-const ClasificacionesSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+const UsersSchema = new mongoose.Schema({
   idInmueble: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Inmuebles",
@@ -11,6 +10,14 @@ const ClasificacionesSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Usuarios",
     // required: [true, "El ID del usuario es obligatorio"],
+  },
+  email: {
+    type: String,
+    // required: [true, "La evaluación del estado del inmueble es obligatoria"],
+  },
+  password: {
+    type: String,
+    // required: [true, "La evaluación del estado del inmueble es obligatoria"],
   },
   estadoInmueble: {
     type: String,
@@ -25,10 +32,10 @@ const ClasificacionesSchema = new mongoose.Schema({
   },
   vecinos: {
     type: String,
-    required: [
-      true,
-      // "La evaluación del comportamiento de los vecinos es obligatoria",
-    ],
+    // required: [
+    //   true,
+    // "La evaluación del comportamiento de los vecinos es obligatoria",
+    // ],
   },
   zona: {
     type: String,
@@ -40,9 +47,6 @@ const ClasificacionesSchema = new mongoose.Schema({
   },
 });
 
-const Clasificaciones = mongoose.model(
-  "Clasificaciones",
-  ClasificacionesSchema
-);
+const Users = mongoose.model("Users", UsersSchema);
 
-module.exports = Clasificaciones;
+module.exports = Users;
