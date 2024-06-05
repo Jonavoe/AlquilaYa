@@ -3,17 +3,52 @@ import Image from "next/image";
 import React, { useState } from "react";
 import Logo from "@/assets/image/Logo.png";
 import Link from "next/link";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 type Props = {};
 
-export default function Login({}: Props) {
+export default function Login({ }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(email);
-    console.log(password);
+
+    try {
+      const response = await axios.get(`http://localhost:3001/api/users/email?email=${email}`);
+      console.log(response.data.email)
+      if (response.data.email === email && response.data.password === password) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            container: "swal-container-black",
+            popup: "swal-popup-black",
+            title: "swal-title-white",
+          },
+        }).then(() => {
+          window.location.href = `/?email=${email}`;
+        });
+      }
+
+    } catch (error) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Usuario incorrecto",
+        showConfirmButton: false,
+        timer: 1500,
+        customClass: {
+          container: "swal-container-black",
+          popup: "swal-popup-black",
+          title: "swal-title-white",
+        },
+      })
+      console.error("Registration failed:", error);
+    }
   };
 
   return (
@@ -35,9 +70,10 @@ export default function Login({}: Props) {
             <input
               type="email"
               id="email"
-              placeholder="Ingrese su correo electrónico"
+              placeholder="Ingrese su dirección de correo electrónico"
               className="input input-xs w-full max-w-xs"
               required
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -48,9 +84,10 @@ export default function Login({}: Props) {
             <input
               type="password"
               id="password"
-              placeholder="Ingrese su contraseña"
+              placeholder="Cree una contraseña segura"
               className="input input-xs w-full max-w-xs"
               required
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
