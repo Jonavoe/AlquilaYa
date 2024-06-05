@@ -6,7 +6,7 @@ import axios from "axios";
 
 type Props = {};
 
-export default function Register({}: Props) {
+export default function Register({ }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,8 +20,11 @@ export default function Register({}: Props) {
 
     console.log(data);
 
-    const response = await axios.post("3001/api/users", data);
+    const response = await axios.post("http://localhost:3001/api/users", data);
     console.log("Registration successful:", response);
+
+    setEmail("")
+    setPassword("")
   };
 
   return (
