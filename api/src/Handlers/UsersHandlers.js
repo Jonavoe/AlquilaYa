@@ -42,6 +42,7 @@ const updateUsersByIdHandler = async (req, res) => {
 // Obtener User por correo electrónico
 const getUsersByEmailHandler = async (req, res) => {
   const { email } = req.query;
+  console.log(email);
 
   try {
     const User = await getUsersByEmail(email);
