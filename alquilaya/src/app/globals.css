@@ -31,3 +31,16 @@ body {
     text-wrap: balance;
   }
 }
+
+.swal-container-black {
+  background-color: #1d232a; /* Set background color to black */
+  color: white; /* Set text color to white */
+}
+
+.swal-popup-black {
+  background-color: #1d232a; /* Set background color to black */
+}
+
+.swal-title-white {
+  color: white; /* Set text color to white */
+}
