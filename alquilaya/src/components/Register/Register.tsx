@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Logo from "@/assets/image/Logo.png";
 import Image from "next/image";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 type Props = {};
 
@@ -10,7 +11,7 @@ export default function Register({ }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const data = {
@@ -18,14 +19,29 @@ export default function Register({ }: Props) {
       password,
     };
 
-    console.log(data);
+    try {
+      const response = await axios.post("http://localhost:3001/api/users", data);
+      console.log("Registration successful:", response);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Usuario creado con exito",
+        showConfirmButton: false,
+        timer: 1500,
+        customClass: {
+          container: "swal-container-black",
+          popup: "swal-popup-black",
+          title: "swal-title-white",
+        },
+      }).then(() => {
+        window.location.href = "/Login";
+      });
 
-    const response = await axios.post("http://localhost:3001/api/users", data);
-    console.log("Registration successful:", response);
-
-    setEmail("")
-    setPassword("")
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
   };
+
 
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
@@ -47,6 +63,7 @@ export default function Register({ }: Props) {
               placeholder="Ingrese su dirección de correo electrónico"
               className="input input-xs w-full max-w-xs"
               required
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -60,14 +77,12 @@ export default function Register({ }: Props) {
               placeholder="Cree una contraseña segura"
               className="input input-xs w-full max-w-xs"
               required
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="card-actions justify-end">
-            <button
-              type="submit"
-              className="btn btn-sm bg-primario btn-primary w-full"
-            >
+            <button type="submit" className="btn btn-sm bg-primario btn-primary w-full">
               Crear cuenta
             </button>
           </div>
