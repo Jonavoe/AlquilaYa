@@ -1,8 +1,16 @@
-import { createStore, applyMiddleware, compose } from "redux";
-import rootReducer from "./reducer";
-import { thunk } from "redux-thunk";
+import { configureStore } from "@reduxjs/toolkit";
+import { userApi } from "@/redux/services/userApi";
+import usersReducer from "@/redux/features/UsersSlice"; 
 
-const composeEnhancer = compose;
+export const store = configureStore({
+  reducer: {
+    user: usersReducer,
+    [userApi.reducerPath]: userApi.reducer,
+  },
+  devTools: process.env.NODE_ENV !== "production",
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(userApi.middleware),
+});
 
-const store = createStore(rootReducer, composeEnhancer(applyMiddleware(thunk)));
-export default store;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
