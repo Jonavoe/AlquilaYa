@@ -15,15 +15,15 @@ export default function Header({ user }: Props) {
                     <Image src={Logo} alt='Logo' className='w-10 h-10' />
                     <label htmlFor="" className='font-bold'>AlquilaYa</label>
                 </div>
-                {user ? (
+                {/* {user ? (
                     <div>
                         <label htmlFor="">{user.email}</label>
                     </div>
-                ) : (
-                    <Link href="/Login">
-                        <button className="btn btn-neutral btn-sm">Login</button>
-                    </Link>
-                )}
+                ) : ( */}
+                <Link href="/Login">
+                    <button className="btn btn-neutral btn-sm">Login</button>
+                </Link>
+                {/* )} */}
             </div>
         </div>
     )
