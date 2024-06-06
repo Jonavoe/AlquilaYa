@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 
 const RentsSchema = new mongoose.Schema({
+  pais: {
+    type: String,
+    // required: [true, "La provincia es obligatoria"],
+  },
   provincia: {
     type: String,
     // required: [true, "La provincia es obligatoria"],
@@ -29,7 +33,7 @@ const RentsSchema = new mongoose.Schema({
     // required: [true, "El estado del inmueble es obligatorio"],
     // enum: ["disponible", "alquilado", "vendido", "en mantenimiento"], // Ajusta las opciones según tus necesidades
   },
-  descripcion: {
+  titulo: {
     type: String,
     // required: [true, "La descripción es obligatoria"],
   },
