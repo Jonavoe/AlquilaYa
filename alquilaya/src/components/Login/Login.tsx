@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import Logo from "@/assets/image/Logo.png";
 import Link from "next/link";
 import Swal from "sweetalert2";
-import axios from "axios";
 import { useGetUserByEmailQuery, } from '@/redux/services/userApi';
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/redux/features/UsersSlice";
 import { RootState } from "@reduxjs/toolkit/query";
+import { useRouter } from 'next/navigation';
 
 type Props = {};
 
@@ -20,13 +20,13 @@ export default function Login({ }: Props) {
   const { data: userEmailData } = useGetUserByEmailQuery(email || '');
   const user = useSelector((state: RootState) => state.user);
 
-  console.log(user.user);
-
   useEffect(() => {
     if (userEmailData) {
       dispatch(setUser(userEmailData));
     }
   }, [userEmailData, dispatch]);
+
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -44,7 +44,7 @@ export default function Login({ }: Props) {
             title: "swal-title-white",
           },
         }).then(() => {
-          window.location.href = `/`;
+          router.replace("/")
         });
       } else {
         Swal.fire({
