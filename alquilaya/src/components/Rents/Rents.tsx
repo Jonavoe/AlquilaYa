@@ -9,14 +9,17 @@ interface Props {
 
 export default function Rents({ user }: Props) {
     return (
-        <div className="hero min-h-screen bg-base-200">
-            <div className="hero-content flex-col lg:flex-row-reverse w-3/4">
-                <Image src={Logo} alt='image' width={200} height={200} className="max-w-sm rounded-lg shadow-2xl" />
-                <div>
-                    <h1 className="text-5xl font-bold">Box Office News!</h1>
-                    <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-                    <button className="btn btn-primary">Get Started</button>
+        <div className="bg-base-200 pt-10 w-screen h-screen flex justify-center items-start">
+            <div className="flex gap-5 items-center justify-center">
+                <div className='flex-col flex gap-2'>
+                    <h1 className="text-5xl font-bold">Titulo</h1>
+                    <p className=" ">clasificacion</p>
+                    <p className="">Descripcion</p>
+                    <p className="">direcion</p>
+                    <p className="">precio</p>
+                    <button className="btn btn-primary">Mas Informacion</button>
                 </div>
+                <Image src={Logo} alt='image' width={0} height={0} className=" w-64 h-64" />
             </div>
         </div>
     )
