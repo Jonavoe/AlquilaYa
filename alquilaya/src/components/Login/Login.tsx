@@ -1,10 +1,14 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "@/assets/image/Logo.png";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useGetUserByEmailQuery, } from '@/redux/services/userApi';
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "@/redux/features/UsersSlice";
+import { RootState } from "@reduxjs/toolkit/query";
 
 type Props = {};
 
@@ -12,13 +16,23 @@ export default function Login({ }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useDispatch();
+  const { data: userEmailData } = useGetUserByEmailQuery(email || '');
+  const user = useSelector((state: RootState) => state.user);
+
+  console.log(user.user);
+
+  useEffect(() => {
+    if (userEmailData) {
+      dispatch(setUser(userEmailData));
+    }
+  }, [userEmailData, dispatch]);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      const response = await axios.get(`http://localhost:3001/api/users/email?email=${email}`);
-      console.log(response.data.email)
-      if (response.data.email === email && response.data.password === password) {
+      if (user.user.email === email && user.user.password === password) {
         Swal.fire({
           position: "center",
           icon: "success",
@@ -30,25 +44,26 @@ export default function Login({ }: Props) {
             title: "swal-title-white",
           },
         }).then(() => {
-          window.location.href = `/?email=${email}`;
+          window.location.href = `/`;
         });
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Usuario incorrecto",
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            container: "swal-container-black",
+            popup: "swal-popup-black",
+            title: "swal-title-white",
+          },
+        })
       }
-
     } catch (error) {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Usuario incorrecto",
-        showConfirmButton: false,
-        timer: 1500,
-        customClass: {
-          container: "swal-container-black",
-          popup: "swal-popup-black",
-          title: "swal-title-white",
-        },
-      })
       console.error("Registration failed:", error);
     }
+
   };
 
   return (
