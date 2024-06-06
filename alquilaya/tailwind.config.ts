@@ -13,14 +13,7 @@ const config: Config = {
         primario: "#F8D02C",
       },
     },
-    extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
-      fontFamily: { Poppins: "sans-serif" },
-    },
+    extend: {},
   },
   plugins: [require("daisyui")],
 };
