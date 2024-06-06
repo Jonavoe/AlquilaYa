@@ -55,9 +55,9 @@ export default function Rents({ user }: Props) {
         return (
           <div
             key={i}
-            className="flex gap-5 w-8/12 h-full items-start justify-between bg-base-200 p-10 rounded-xl"
+            className="flex gap-10 w-8/12 h-auto items-start justify-between bg-base-200 p-10 rounded-xl"
           >
-            <div className="flex flex-col border-2 gap-5 h-full">
+            <div className="flex flex-col items-center gap-5 h-full">
               <div className="flex-col h-full flex gap-2">
                 <h2 className="text-2xl font-bold">{rent.titulo}</h2>
                 <p className="text-xl">
@@ -76,7 +76,7 @@ export default function Rents({ user }: Props) {
               alt="image"
               width={0}
               height={0}
-              className=" w-96 h-96"
+              className=" w-80 h-80"
             />
           </div>
         );
