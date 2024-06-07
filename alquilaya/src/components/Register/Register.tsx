@@ -4,12 +4,15 @@ import Logo from "@/assets/image/Logo.png";
 import Image from "next/image";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
-export default function Register({ }: Props) {
+export default function Register({}: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -20,7 +23,10 @@ export default function Register({ }: Props) {
     };
 
     try {
-      const response = await axios.post("http://localhost:3001/api/users", data);
+      const response = await axios.post(
+        "http://localhost:3001/api/users",
+        data
+      );
       console.log("Registration successful:", response);
       Swal.fire({
         position: "center",
@@ -34,14 +40,12 @@ export default function Register({ }: Props) {
           title: "swal-title-white",
         },
       }).then(() => {
-        window.location.href = "/Login";
+        router.replace("/Login");
       });
-
     } catch (error) {
       console.error("Registration failed:", error);
     }
   };
-
 
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
@@ -82,7 +86,10 @@ export default function Register({ }: Props) {
             />
           </div>
           <div className="card-actions justify-end">
-            <button type="submit" className="btn btn-sm bg-primario btn-primary w-full">
+            <button
+              type="submit"
+              className="btn btn-sm bg-primario btn-primary w-full"
+            >
               Crear cuenta
             </button>
           </div>
